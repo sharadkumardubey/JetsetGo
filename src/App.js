@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import BookingForm from './components/BookingForm';
+import Flights from './components/Flights';
+import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-[url('https://unsplash.com/photos/w5zd1EdLLB0')] h-screen bg-cover bg-center">
+      <Header />
+      <BookingForm />
+      <Flights />
     </div>
   );
 }
