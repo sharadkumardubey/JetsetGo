@@ -36,7 +36,7 @@ const Flights = () => {
     return <></>;
   } else {
     return (
-      <div className='mt-10'>
+      <div className='mt-10 overflow-y-auto h-screen'>
         {flightList.map((flight) => {
           return <FlightListCard card={flight} key={flight.id} />;
         })}
