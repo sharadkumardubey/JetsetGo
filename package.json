@@ -1,7 +1,7 @@
 {
-  "name": "jetsetgo",
+  "name": "JetsetGo",
   "version": "0.1.0",
-  "homepage": "https://sharadkumardubey.github.io/jetsetgo",
+  "homepage": "https://sharadkumardubey.github.io/JetsetGo",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
