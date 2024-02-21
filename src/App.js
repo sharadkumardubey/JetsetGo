@@ -1,11 +1,11 @@
-import './App.css';
-import BookingForm from './components/BookingForm';
-import Flights from './components/Flights';
-import Header from './components/Header';
+import "./App.css";
+import BookingForm from "./components/BookingForm";
+import Flights from "./components/Flights";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="bg-[url('https://unsplash.com/photos/w5zd1EdLLB0')] h-screen bg-cover bg-center">
+    <div className="bg-[url('https://unsplash.com/photos/w5zd1EdLLB0')] h-screen bg-cover bg-center overflow-y-hidden">
       <Header />
       <BookingForm />
       <Flights />
