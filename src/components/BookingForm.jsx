@@ -45,11 +45,13 @@ const BookingForm = () => {
             <p className='my-1 font-semibold'>Source</p>
             <select name='source' id='source' onChange={handleChange}>
               <option value=''>Select Source</option>
-              {cityNamesSource.map((name) => (
-                <option value={name} key={name}>
-                  {name}
-                </option>
-              ))}
+              {cityNamesSource
+                .filter((v) => v !== formData.destination)
+                .map((name) => (
+                  <option value={name} key={name}>
+                    {name}
+                  </option>
+                ))}
             </select>
           </label>
           <label
@@ -59,11 +61,13 @@ const BookingForm = () => {
             <p className='my-1 font-semibold'>Destination</p>
             <select name='destination' id='destination' onChange={handleChange}>
               <option value=''>Select Destination</option>
-              {cityNamesDestination.map((name) => (
-                <option value={name} key={name}>
-                  {name}
-                </option>
-              ))}
+              {cityNamesDestination
+                .filter((v) => v !== formData.source)
+                .map((name) => (
+                  <option value={name} key={name}>
+                    {name}
+                  </option>
+                ))}
             </select>
           </label>
           <label
