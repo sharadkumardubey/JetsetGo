@@ -2,13 +2,11 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className='p-5 rounded-sm'>
-      <a
-        href='/'
-        className='text-2xl text-blue-9500 font-bold hover:shadow-md rounded-lg p-2 drop-shadow-xl'
-      >
-        JetSetGo
-        <hr className='w-80 h-1 bg-gray-900 border-0 rounded' />
+    <header className='py-5 px-16 rounded-sm'>
+      <a href={`/jetsetgo`}>
+        <mark class='px-2 text-4xl font-extrabold text-white bg-sky-900 rounded drop-shadow-2xl'>
+          JetSetGo
+        </mark>
       </a>
     </header>
   );

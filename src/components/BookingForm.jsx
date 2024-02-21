@@ -17,7 +17,7 @@ const BookingForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const queryParams = new URLSearchParams(formData).toString();
-    navigate(`/?${queryParams}`);
+    navigate(`jetsetgo/?${queryParams}`);
   };
 
   const handleChange = (e) => {

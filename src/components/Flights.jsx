@@ -4,7 +4,6 @@ import FlightListCard from './FlightListCard';
 import { durationToMinutes } from '../utils/helper';
 
 const sortData = (flightData, sortBy) => {
-  console.log(sortBy);
   if (sortBy === 'priceDesc') {
     return [...flightData].sort((a, b) => a.fare - b.fare);
   } else if (sortBy === 'durationAsc') {
@@ -18,21 +17,25 @@ const sortData = (flightData, sortBy) => {
   }
 };
 
-const filterData = (flightData, queryParams) => {
+const filterData = (flightData, queryParams, selectedFlight) => {
   return flightData.filter((flight) => {
     const { source, destination, date } = queryParams;
     return (
       flight.displayData.source.airport.cityName === source &&
       flight.displayData.destination.airport.cityName === destination &&
-      flight.displayData.source.depTime.startsWith(date)
+      flight.displayData.source.depTime.startsWith(date) &&
+      flight.displayData.airlines[0].airlineName.startsWith(selectedFlight)
     );
   });
 };
+
+const flightListOptions = ['JetSpice', 'Air India'];
 
 const Flights = () => {
   const location = useLocation();
   const [queryParams, setQueryParams] = useState({});
   const [flightList, setFlightList] = useState([]);
+  const [selectedFlight, setSelectedFlight] = useState('');
   const [sortBy, setSortBy] = useState('');
 
   const fetchFlights = async () => {
@@ -54,16 +57,19 @@ const Flights = () => {
       params[key] = value;
     }
     setQueryParams(params);
-    fetchFlights();
+    if (Object.keys(params).length > 0) fetchFlights();
   }, [location.search]);
 
   const handleChangeSort = (e) => {
     if (e.target.value) setSortBy(e.target.value);
   };
+  const handleFlightSelectChange = (e) => {
+    setSelectedFlight(e.target.value);
+  };
 
   const filteredFlights = useMemo(
-    () => filterData(flightList, queryParams),
-    [flightList, queryParams]
+    () => filterData(flightList, queryParams, selectedFlight),
+    [flightList, queryParams, selectedFlight]
   );
 
   const sortedFlights = useMemo(
@@ -73,7 +79,7 @@ const Flights = () => {
 
   return (
     <>
-      {sortedFlights.length > 0 && (
+      {flightList.length > 0 && (
         <div className='mt-5 overflow-y-auto h-screen'>
           <label
             htmlFor='sortBy'
@@ -91,10 +97,34 @@ const Flights = () => {
               <option value='durationAsc'>Fastest First</option>
             </select>
           </label>
+          <label
+            htmlFor='flightSelect'
+            className='border-2 border-sky-500 p-1 rounded-md w-56 block text-right mx-16 float-right bg-white'
+          >
+            <p className='my-1 font-semibold'>Select Flight</p>
+            <select
+              name='flightSelect'
+              id='flightSelect'
+              onChange={handleFlightSelectChange}
+              className='w-full'
+            >
+              <option value=''>Select option</option>
+              {flightListOptions.map((v) => (
+                <option value={v} id={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </label>
           <div className='w-full grid'>
             {sortedFlights.map((flight) => (
               <FlightListCard data={flight} key={flight.id} />
             ))}
+            {sortedFlights.length === 0 && (
+              <div className='text-center my-10 font-bold text-slate-950 drop-shadow-lg'>
+                No Flights Found....
+              </div>
+            )}
           </div>
         </div>
       )}
