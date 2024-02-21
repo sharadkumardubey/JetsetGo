@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jetsetgo/static/css/main.0343d8cb.css",
+    "main.js": "/jetsetgo/static/js/main.943a2685.js",
+    "static/js/453.607718be.chunk.js": "/jetsetgo/static/js/453.607718be.chunk.js",
+    "index.html": "/jetsetgo/index.html",
+    "main.0343d8cb.css.map": "/jetsetgo/static/css/main.0343d8cb.css.map",
+    "main.943a2685.js.map": "/jetsetgo/static/js/main.943a2685.js.map",
+    "453.607718be.chunk.js.map": "/jetsetgo/static/js/453.607718be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0343d8cb.css",
+    "static/js/main.943a2685.js"
+  ]
+}
