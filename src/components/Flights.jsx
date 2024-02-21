@@ -1,17 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
-import FlightListCard from "./FlightListCard";
-import { durationToMinutes } from "../utils/helper";
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import FlightListCard from './FlightListCard';
+import { durationToMinutes } from '../utils/helper';
 
 const sortData = (flightData, sortBy) => {
   console.log(sortBy);
-  if (sortBy === "priceDesc") {
+  if (sortBy === 'priceDesc') {
     return [...flightData].sort((a, b) => a.fare - b.fare);
-  } else if (sortBy === "durationAsc") {
+  } else if (sortBy === 'durationAsc') {
     return [...flightData].sort(
       (a, b) =>
         durationToMinutes(a.displayData.totalDuration) -
-        durationToMinutes(b.displayData.totalDuration),
+        durationToMinutes(b.displayData.totalDuration)
     );
   } else {
     return flightData;
@@ -33,17 +33,17 @@ const Flights = () => {
   const location = useLocation();
   const [queryParams, setQueryParams] = useState({});
   const [flightList, setFlightList] = useState([]);
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState('');
 
   const fetchFlights = async () => {
     try {
       const response = await fetch(
-        "https://api.npoint.io/4829d4ab0e96bfab50e7",
+        'https://api.npoint.io/4829d4ab0e96bfab50e7'
       );
       const data = await response.json();
       setFlightList(data?.data?.result || []);
     } catch (error) {
-      console.error("Error fetching flights:", error);
+      console.error('Error fetching flights:', error);
     }
   };
 
@@ -63,38 +63,42 @@ const Flights = () => {
 
   const filteredFlights = useMemo(
     () => filterData(flightList, queryParams),
-    [flightList, queryParams],
+    [flightList, queryParams]
   );
 
   const sortedFlights = useMemo(
     () => sortData(filteredFlights, sortBy),
-    [filteredFlights, sortBy],
+    [filteredFlights, sortBy]
   );
 
   return (
-    <div className="mt-10 overflow-y-auto h-screen">
-      <label
-        htmlFor="sortBy"
-        className="border-2 border-sky-500 p-1 rounded-md w-56 block text-right mx-16 float-right bg-white"
-      >
-        <p className="my-1 font-semibold">Sort By</p>
-        <select
-          name="sortBy"
-          id="sortBy"
-          onChange={handleChangeSort}
-          className="w-full"
-        >
-          <option value="">Select option</option>
-          <option value="priceDesc">Cheapest First</option>
-          <option value="durationAsc">Fastest First</option>
-        </select>
-      </label>
-      <div className="w-full grid">
-        {sortedFlights.map((flight) => (
-          <FlightListCard data={flight} key={flight.id} />
-        ))}
-      </div>
-    </div>
+    <>
+      {sortedFlights.length > 0 && (
+        <div className='mt-5 overflow-y-auto h-screen'>
+          <label
+            htmlFor='sortBy'
+            className='border-2 border-sky-500 p-1 rounded-md w-56 block text-right mx-16 float-right bg-white'
+          >
+            <p className='my-1 font-semibold'>Sort By</p>
+            <select
+              name='sortBy'
+              id='sortBy'
+              onChange={handleChangeSort}
+              className='w-full'
+            >
+              <option value=''>Select option</option>
+              <option value='priceDesc'>Cheapest First</option>
+              <option value='durationAsc'>Fastest First</option>
+            </select>
+          </label>
+          <div className='w-full grid'>
+            {sortedFlights.map((flight) => (
+              <FlightListCard data={flight} key={flight.id} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
